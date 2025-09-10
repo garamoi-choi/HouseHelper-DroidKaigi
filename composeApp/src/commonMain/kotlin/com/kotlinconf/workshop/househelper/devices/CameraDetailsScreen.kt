@@ -18,8 +18,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,7 +36,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kotlinconf.workshop.househelper.CameraDevice
 import com.kotlinconf.workshop.househelper.rememberVideoPlayerState
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -51,7 +48,7 @@ fun CameraDetailsScreen(
     onNavigateToRename: (String) -> Unit,
     viewModel: CameraDetailsViewModel = koinViewModel { parametersOf(deviceId) },
 ) {
-    val device = CameraDevice(deviceId, "Fake Camera", areaId = "")
+    val device by viewModel.camera.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -83,7 +80,7 @@ fun CameraDetailsScreen(
                 Switch(
                     checked = camera.isOn,
                     onCheckedChange = {
-                        // TODO handle on/off toggle using the ViewModel
+                        viewModel.toggleOnOff()
                     }
                 )
 
