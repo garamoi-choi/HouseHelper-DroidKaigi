@@ -13,7 +13,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun OnboardingScreen(
@@ -63,16 +67,16 @@ fun OnboardingScreen(
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             ) {
                 Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
                     verticalArrangement = Arrangement.Center,
-//                    horizontalAlignment = Alignment.CenterHorizontally,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-//                        modifier = Modifier.size(96.dp),
+                        modifier = Modifier.size(96.dp),
                         tint = MaterialTheme.colorScheme.primary
                     )
 
@@ -104,5 +108,18 @@ fun OnboardingScreen(
                 style = MaterialTheme.typography.titleMedium,
             )
         }
+    }
+}
+
+@Preview
+@Composable
+fun OnboardingScreenPreview() {
+    MaterialTheme {
+        OnboardingScreen(
+            text = "Welcome to House Helper",
+            buttonText = "Next",
+            icon = Icons.Default.Favorite,
+            onNext = {}
+        )
     }
 }
