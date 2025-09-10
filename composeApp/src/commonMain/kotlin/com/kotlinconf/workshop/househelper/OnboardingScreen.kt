@@ -39,6 +39,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 fun OnboardingScreen(
     text: String,
+    subText: String,
     buttonText: String,
     icon: ImageVector,
     onNext: () -> Unit,
@@ -88,6 +89,14 @@ fun OnboardingScreen(
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
+
+                    Text(
+                        text = subText,
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurface,
+
+                        )
                 }
             }
         }
@@ -117,6 +126,7 @@ fun OnboardingScreenPreview() {
     MaterialTheme {
         OnboardingScreen(
             text = "Welcome to House Helper",
+            subText = "Your personal assistant for managing your smart home devices.",
             buttonText = "Next",
             icon = Icons.Default.Favorite,
             onNext = {}
