@@ -8,11 +8,9 @@ import com.kotlinconf.workshop.househelper.LightDevice
 import com.kotlinconf.workshop.househelper.SwitchDevice
 import com.kotlinconf.workshop.househelper.Toggleable
 import com.kotlinconf.workshop.househelper.data.HouseService
-import com.kotlinconf.workshop.househelper.database.entities.DeviceEntity
 import com.kotlinconf.workshop.househelper.utils.imageUrls
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -97,8 +95,16 @@ class DatabaseHouseService(private val database: AppDatabase) : HouseService {
     }
 
     override suspend fun toggleFavorite(deviceId: String): Boolean {
-        // TODO implement toggling the state in the database
-        return false
+        println("#DatabaseHouseService.toggleFavorite args : deviceId=$deviceId")
+
+        val device = database.deviceDao().getDeviceById(deviceId)
+            .first()
+            ?: return false
+        println("#DatabaseHouseService.toggleFavorite : device=$device")
+
+        val updated = device.copy(isFavorite = !device.isFavorite)
+        database.deviceDao().updateDevice(updated)
+        return true
     }
 
     override fun getFavoriteDevices(): Flow<List<Device>> {
